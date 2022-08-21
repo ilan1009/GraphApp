@@ -1,0 +1,228 @@
+WindowManager:
+    MenuWindow:
+    TwoWindow:
+    OneWindow:
+    GraphWindow:
+    ResultWindow:
+    ErrorWindow:
+
+<TwoWindow>:
+    name: "2p"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 4
+        size_hint: 1, 1
+        spacing: "10dp"
+
+        Label:
+            text: 'Seperate x and y with space'
+            text_size: self.width, None
+            size_hint: 1, .4
+
+        TextInput:
+            hint_text: 'Point one:'
+            size_hint: 1, .5
+            id: pone
+        TextInput:
+            hint_text: 'Point two:'
+            size_hint: 1, .5
+            id: ptwo
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 5
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Back"
+                on_press:
+                    app.root.current = "menu"
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Done"
+                on_press:
+                    app.root.current = "result"
+                    root.find2p()
+
+<OneWindow>:
+    name: "1p"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 4
+        size_hint: 1, 1
+        spacing: "10dp"
+
+        Label:
+            text: 'Seperate x and y with space'
+            text_size: self.width, None
+            size_hint: 1, .4
+
+        TextInput:
+            hint_text: 'Point one:'
+            size_hint: 1, .5
+            id: pone
+        TextInput:
+            hint_text: 'M Value:'
+            size_hint: 1, .5
+            id: mvalue
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 5
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Back"
+                on_press:
+                    app.root.current = "menu"
+
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Done"
+                on_press:
+                    app.root.current = "result"
+                    root.find1p()
+
+<GraphWindow>:
+    name: "gp"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 4
+        size_hint: 1, 1
+        spacing: "10dp"
+
+        Label:
+            text: 'Graph a linear function with m & b'
+            text_size: self.width, None
+            size_hint: 1, .4
+
+        TextInput:
+            hint_text: 'M Value:'
+            size_hint: 1, .5
+            id: mvalue
+        TextInput:
+            hint_text: 'B Value:'
+            size_hint: 1, .5
+            id: bvalue
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 5
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Back"
+                on_press:
+                    app.root.current = "menu"
+
+            Button:
+                size_hint: .5, None
+                height: "60dp"
+                text: "Done"
+                on_press:
+                    app.root.current = "result"
+                    root.graph()
+
+<ResultWindow>:
+    name: "result"
+
+    BoxLayout:
+        accent_dark: 1,1,1,1
+        id: lay
+        orientation: "vertical"
+
+        Label:
+            id: out_func
+            text: 'error'
+            size_hint: 1, .2
+
+        Button:
+            id: donebutt
+            text: 'back'
+            size_hint: 1, .2
+            on_press:
+                app.root.current = "menu"
+                root.back()
+
+<MenuWindow>:
+    name: "menu"
+
+    GridLayout:
+        padding: 2
+        cols: 2
+        rows: 2
+
+        Button:
+            text: "2p"
+            on_press:
+                app.root.current = "2p"
+                root.change_lim()
+
+        Button:
+            text: "1p&M"
+            on_press:
+                app.root.current = "1p"
+                root.change_lim()
+
+        Button:
+            text: "M & B"
+            on_press:
+                app.root.current = "gp"
+                root.change_lim()
+
+        BoxLayout:
+
+            orientation: "vertical"
+
+            BoxLayout:
+                Label:
+                    id: label
+                    text: str(int(slider.value))
+                    size_hint: .2, 1
+                Slider:
+                    min: 3
+                    max: 16
+                    #step: 1
+                    value: 7
+
+                    id: slider
+
+            Button:
+                text: 'Graph ON'
+                id: graphbutton
+                background_color: 0,1,0,1
+                on_release:
+                    root.graph_toggle()
+            Button:
+                text: 'Keep Box Aspect ON'
+                id: boxbutton
+                background_color: 0,1,0,1
+                on_release:
+                    root.box_toggle()
+
+<ErrorWindow>:
+    name: "error"
+
+    BoxLayout:
+        Label:
+
+            id: errorvalue
+            text: 'ERROR'
+            size_hint: 1, .8
+
+        Button:
+            id: backbutt
+            text: 'back'
+            size_hint: 1, .2
+            on_press:
+                app.root.current = "menu"
