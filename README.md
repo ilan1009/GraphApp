@@ -2,9 +2,9 @@
 Installation
 
 pip install -r requirements.txt
-
 garden install matplotlib
 
+or run install.bat
 
 --------------
 
